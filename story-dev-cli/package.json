@@ -1,5 +1,5 @@
 {
-  "name": "@story-protocol/dev-cli",
+  "name": "@majormaxx/story-dev-cli",
   "version": "1.0.0",
   "description": "Story Dev CLI - Generate production-ready Story Protocol projects in 2 minutes",
   "main": "dist/cli.js",
@@ -22,8 +22,16 @@
     "royalty",
     "developer-tools"
   ],
-  "author": "Story Protocol Community",
+  "author": "Majormaxx",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Majormaxx/story-dev-cli.git"
+  },
+  "homepage": "https://github.com/Majormaxx/story-dev-cli#readme",
+  "bugs": {
+    "url": "https://github.com/Majormaxx/story-dev-cli/issues"
+  },
   "dependencies": {
     "commander": "^11.1.0",
     "inquirer": "^9.2.12",

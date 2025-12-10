@@ -1,0 +1,27 @@
+# Source files (only publish dist/)
+src/
+tsconfig.json
+
+# Test files
+tests/
+*.test.ts
+*.spec.ts
+
+# Development files
+majormaxx/
+*.log
+.env*
+
+# CI/CD
+.github/
+
+# Build artifacts
+node_modules/
+.next/
+
+# Documentation (keep README.md)
+CONTRIBUTING.md
+
+# Git
+.git/
+.gitignore

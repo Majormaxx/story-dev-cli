@@ -34,7 +34,7 @@ export function maskPrivateKey(key: string): string {
  */
 export const SECURITY_WARNINGS = {
   privateKey: `
-⚠️  CRITICAL SECURITY WARNING ⚠️
+CRITICAL SECURITY WARNING
 
 Your private key controls your wallet and all its assets.
 
@@ -54,7 +54,7 @@ The CLI has automatically added .env to .gitignore for your protection.
 `,
   
   testnetRecommendation: `
-💡 RECOMMENDATION: Use Testnet First
+RECOMMENDATION: Use Testnet First
 
 For development and testing:
   1. Use Story Aeneid Testnet (Chain ID: 1315)

@@ -47,9 +47,9 @@ export async function createQuickstart(options: CreateOptions): Promise<void> {
           name: 'template',
           message: 'Select template:',
           choices: [
-            { name: '📝 IP Registration (register new assets)', value: 'registration' },
-            { name: '📜 Licensing (attach licenses & mint tokens)', value: 'licensing' },
-            { name: '💰 Royalty Management (claim revenue)', value: 'royalty' },
+            { name: 'IP Registration (register new assets)', value: 'registration' },
+            { name: 'Licensing (attach licenses & mint tokens)', value: 'licensing' },
+            { name: 'Royalty Management (claim revenue)', value: 'royalty' },
           ],
           default: 'registration',
         },
@@ -58,8 +58,8 @@ export async function createQuickstart(options: CreateOptions): Promise<void> {
           name: 'network',
           message: 'Select network:',
           choices: [
-            { name: '🧪 Testnet (Aeneid) - Recommended for development', value: 'testnet' },
-            { name: '🌐 Mainnet - Production use only', value: 'mainnet' },
+            { name: 'Testnet (Aeneid) - Recommended for development', value: 'testnet' },
+            { name: 'Mainnet - Production use only', value: 'mainnet' },
           ],
           default: 'testnet',
         },
@@ -148,7 +148,7 @@ export async function createQuickstart(options: CreateOptions): Promise<void> {
     // Show success message
     const networkConfig = getNetworkConfig(network);
     
-    logger.section('✅ Project Created Successfully!');
+    logger.section('Project Created Successfully!');
     logger.log('');
     logger.info(`Project: ${projectName}`);
     logger.info(`Template: ${template}`);
@@ -177,7 +177,7 @@ export async function createQuickstart(options: CreateOptions): Promise<void> {
     }
     
     logger.log('');
-    logger.success('Happy building on Story Protocol! 🚀');
+    logger.success('Happy building on Story Protocol!');
     logger.log('');
     logger.info('Documentation: https://docs.story.foundation');
     logger.info('Discord: https://discord.gg/storybuilders');

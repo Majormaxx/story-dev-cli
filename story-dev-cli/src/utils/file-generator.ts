@@ -85,26 +85,29 @@ export async function copyTemplate(
 export async function generateProject(config: ProjectConfig): Promise<void> {
   const { targetPath, network } = config;
   
+  // Sanitize target path to prevent directory traversal
+  const safePath = sanitizePath(process.cwd(), targetPath);
+  
   // Create project directory
-  await fs.ensureDir(targetPath);
+  await fs.ensureDir(safePath);
   
   // Copy template
-  await copyTemplate(config.template, targetPath, config);
+  await copyTemplate(config.template, safePath, config);
   
   // Generate .env file
   const envContent = generateEnvFile(config);
-  await fs.writeFile(path.join(targetPath, '.env'), envContent);
+  await fs.writeFile(path.join(safePath, '.env'), envContent);
   
   // Generate .env.example
   const envExampleContent = generateEnvExample(network);
-  await fs.writeFile(path.join(targetPath, '.env.example'), envExampleContent);
+  await fs.writeFile(path.join(safePath, '.env.example'), envExampleContent);
   
   // Generate .gitignore
   const gitignoreContent = generateGitignore();
-  await fs.writeFile(path.join(targetPath, '.gitignore'), gitignoreContent);
+  await fs.writeFile(path.join(safePath, '.gitignore'), gitignoreContent);
   
   // Update package.json name
-  const packageJsonPath = path.join(targetPath, 'package.json');
+  const packageJsonPath = path.join(safePath, 'package.json');
   if (await fs.pathExists(packageJsonPath)) {
     const packageJson = await fs.readJson(packageJsonPath);
     packageJson.name = config.projectName;
@@ -113,11 +116,42 @@ export async function generateProject(config: ProjectConfig): Promise<void> {
 }
 
 /**
- * Validate project name
+ * Validate project name with enhanced security checks
  */
 export function validateProjectName(name: string): boolean {
-  // Must be alphanumeric with hyphens/underscores
-  return /^[a-z0-9-_]+$/i.test(name);
+  // Check for empty or whitespace-only names
+  if (!name || name.trim().length === 0) {
+    return false;
+  }
+  
+  // Prevent path traversal patterns
+  if (name.includes('..') || name.includes('/') || name.includes('\\')) {
+    return false;
+  }
+  
+  // Prevent leading dots or dashes (hidden files or invalid package names)
+  if (name.startsWith('.') || name.startsWith('-')) {
+    return false;
+  }
+  
+  // Must be alphanumeric with hyphens/underscores only
+  // Length between 1-214 characters (npm package name limit)
+  return /^[a-z0-9][a-z0-9-_]{0,213}$/i.test(name);
+}
+
+/**
+ * Sanitize path to prevent directory traversal
+ */
+export function sanitizePath(basePath: string, userPath: string): string {
+  const normalized = path.normalize(userPath).replace(/^(\.\.[\/\\])+/, '');
+  const resolved = path.resolve(basePath, normalized);
+  
+  // Ensure the resolved path is within the base path
+  if (!resolved.startsWith(path.resolve(basePath))) {
+    throw new Error('Invalid path: directory traversal detected');
+  }
+  
+  return resolved;
 }
 
 /**

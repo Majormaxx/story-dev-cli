@@ -3,6 +3,12 @@
  */
 
 import { NETWORK_CONFIG } from './constants';
+import { checkEnvironment } from './env';
+
+// Validate environment on module load
+if (typeof window === 'undefined') {
+  checkEnvironment();
+}
 
 /**
  * Shorten address for display

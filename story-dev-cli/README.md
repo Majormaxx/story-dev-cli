@@ -1,117 +1,104 @@
-# Story Protocol CLI
+# Story Dev CLI
 
-> Generate production-ready Story Protocol projects in 2 minutes
+> From idea to Story Protocol app in 2 minutes
 
-[![npm version](https://img.shields.io/npm/v/@story-protocol/cli.svg)](https://www.npmjs.com/package/@story-protocol/cli)
+[![npm version](https://img.shields.io/npm/v/@majormaxx/story-dev-cli.svg)](https://www.npmjs.com/package/@majormaxx/story-dev-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm downloads](https://img.shields.io/npm/dt/@majormaxx/story-dev-cli.svg)](https://www.npmjs.com/package/@majormaxx/story-dev-cli)
 
-## Overview
+## Why Story Dev CLI?
 
-The Story Protocol CLI is a developer tool that reduces setup time from **60 minutes to 2 minutes** by automating environment configuration and generating production-ready boilerplate code for Story Protocol applications.
+Building on Story Protocol shouldn't require an hour of setup. Story Dev CLI eliminates the tedious configuration work so you can start building immediately.
 
-## Features
-
-- ✅ **Instant Setup** - Generate fully configured Next.js projects
-- ✅ **Auto-Configuration** - Contract addresses and network settings pre-populated
-- ✅ **Multiple Templates** - IP Registration, Licensing, Royalty Management
-- ✅ **Security First** - Built-in security warnings and `.gitignore` configuration
-- ✅ **TypeScript Support** - Full type safety with Story SDK
-- ✅ **Interactive CLI** - User-friendly prompts for easy project creation
+**Before:** 60+ minutes configuring contracts, environment variables, and boilerplate  
+**After:** 2 minutes to a working Story Protocol application
 
 ## Installation
 
 ```bash
-npm install -g @story-protocol/cli
+npm install -g @majormaxx/story-dev-cli
+```
+
+Or try instantly with npx (no installation required):
+
+```bash
+npx @majormaxx/story-dev-cli create:quickstart --interactive
 ```
 
 ## Quick Start
 
-### Create a New Project
+Create a new Story Protocol project in three steps:
 
 ```bash
-story-cli create:quickstart --interactive
-```
+# 1. Generate your project
+story-dev-cli create:quickstart --interactive
 
-Follow the interactive prompts:
-
-1. **Project name** - Choose a name for your project
-2. **Template** - Select from IP Registration, Licensing, or Royalty Management
-3. **Network** - Choose Testnet (recommended) or Mainnet
-4. **Private key** - Enter your wallet private key (stored securely in `.env`)
-
-### Run Your Project
-
-```bash
+# 2. Install dependencies
 cd my-story-app
 npm install
+
+# 3. Start developing
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) 
+Open [http://localhost:3000](http://localhost:3000) to see your app.
 
-## Templates
+## Features
 
-### 1. IP Registration
+- **Zero Configuration** - All 16+ contract addresses auto-populated for mainnet and testnet
+- **Production-Ready Templates** - Working Next.js applications with Story SDK integration
+- **Built-in Security** - Automatic `.gitignore` creation and private key validation
+- **TypeScript First** - Full type safety with Story Protocol SDK
+- **Interactive CLI** - Simple prompts guide you through project creation
 
-Register intellectual property assets on Story Protocol.
+## Available Template
 
-**Features:**
+### IP Registration
 
-- Mint and register IP assets
-- Upload metadata
-- Transaction tracking
-- Block explorer integration
+Register intellectual property assets on Story Protocol with a complete Next.js application.
 
-### 2. Licensing (Coming Soon)
+**Includes:**
 
-Attach licenses and mint license tokens.
+- Story SDK client setup
+- IP asset registration flow
+- Transaction handling and confirmation
+- Metadata upload interface
+- Tailwind CSS styling
 
-**Features:**
-
-- Attach PIL licenses to IP
-- Mint license tokens
-- Configure license terms
-
-### 3. Royalty Management (Coming Soon)
-
-Claim and manage royalty payments.
-
-**Features:**
-
-- Claim royalties
-- Track revenue
-- Payment history
-
-## Commands
+## CLI Reference
 
 ### `create:quickstart`
 
 Generate a new Story Protocol project.
 
-**Options:**
-
-- `--interactive` - Interactive mode (default)
-- `--name <string>` - Project name
-- `--template <string>` - Template (registration, licensing, royalty)
-- `--network <string>` - Network (testnet, mainnet)
-- `--force` - Overwrite existing directory
+| Option                | Description                    | Default        |
+| --------------------- | ------------------------------ | -------------- |
+| `--interactive`       | Interactive prompts            | `true`         |
+| `--name <string>`     | Project name                   | `my-story-app` |
+| `--template <string>` | Template type (`registration`) | `registration` |
+| `--network <string>`  | Network (`testnet`, `mainnet`) | `testnet`      |
+| `--force`             | Overwrite existing directory   | `false`        |
 
 **Examples:**
 
 ```bash
-# Interactive mode
-story-cli create:quickstart --interactive
+# Interactive mode (recommended)
+story-dev-cli create:quickstart --interactive
 
-# Non-interactive mode
-story-cli create:quickstart --name my-app --template registration --network testnet
+# Quick setup with defaults
+story-dev-cli create:quickstart --name my-ip-app
 
-# Force overwrite
-story-cli create:quickstart --name my-app --force
+# Full configuration
+story-dev-cli create:quickstart \
+  --name my-app \
+  --template registration \
+  --network testnet
+
+# Overwrite existing directory
+story-dev-cli create:quickstart --name my-app --force
 ```
 
-## Project Structure
-
-Generated projects include:
+## Generated Project Structure
 
 ```
 my-story-app/
@@ -119,26 +106,26 @@ my-story-app/
 │   ├── client/
 │   │   └── story.ts          # Story SDK client
 │   ├── components/
-│   │   └── RegisterIP.tsx    # Template component
+│   │   └── RegisterIP.tsx    # IP registration component
 │   ├── lib/
 │   │   ├── constants.ts      # Contract addresses
 │   │   ├── types.ts          # TypeScript types
 │   │   └── utils.ts          # Helper functions
 │   ├── pages/
-│   │   └── index.tsx         # Main page
+│   │   └── index.tsx         # Main application page
 │   └── styles/
-│       └── globals.css       # Global styles
+│       └── globals.css       # Tailwind CSS styles
 ├── .env                      # Environment variables (auto-populated)
-├── .env.example              # Example env file
+├── .env.example              # Example environment file
 ├── .gitignore                # Git ignore (includes .env)
 ├── package.json
 ├── tsconfig.json
 └── README.md
 ```
 
-## Environment Variables
+## Environment Configuration
 
-All environment variables are auto-populated:
+All environment variables are automatically configured:
 
 ```env
 # Network Configuration
@@ -153,34 +140,28 @@ PRIVATE_KEY=0x...
 NEXT_PUBLIC_IP_ASSET_REGISTRY=0x...
 NEXT_PUBLIC_LICENSING_MODULE=0x...
 NEXT_PUBLIC_ROYALTY_MODULE=0x...
-# ... and more
+# ... and 13 more contracts
 ```
 
-## Security
+## Security Best Practices
 
-### Private Key Safety
+**CRITICAL:** Your private key controls your wallet and all its assets.
 
-⚠️ **CRITICAL:** Your private key controls your wallet and all its assets.
+**Recommended:**
 
-**DO:**
+- Use a separate wallet for development and testing
+- Keep your `.env` file local and never commit it
+- Verify `.env` is in your `.gitignore` (automatically added by CLI)
+- Use testnet for development before deploying to mainnet
 
-- ✅ Use a separate wallet for development/testing
-- ✅ Keep your `.env` file local and secure
-- ✅ Verify `.env` is in `.gitignore`
-- ✅ Use testnet for development
-
-**DON'T:**
-
-- ❌ Share your private key with anyone
-- ❌ Commit `.env` to version control
-- ❌ Use your production wallet for testing
-- ❌ Store keys in plain text on shared systems
-
-The CLI automatically:
+**The CLI automatically:**
 
 - Adds `.env` to `.gitignore`
+- Validates private key format
 - Creates `.env.example` for version control
-- Shows security warnings during setup
+- Displays security warnings during setup
+
+For detailed security guidelines, see [SECURITY.md](https://github.com/Majormaxx/story-dev-cli/blob/main/SECURITY.md).
 
 ## Networks
 
@@ -201,53 +182,65 @@ The CLI automatically:
 
 ## Troubleshooting
 
-### "Invalid private key" error
+### Invalid private key error
 
-Ensure your private key is in the correct format:
+Ensure your private key:
 
-- 64 hex characters
-- Can start with `0x` or not
-- Example: `0x1234567890abcdef...`
+- Is 64 hexadecimal characters
+- Optionally starts with `0x`
+- Example: `0x1234567890abcdef...` (64 characters after 0x)
 
-### "Insufficient funds" error
+### Insufficient funds error
 
-**Testnet:** Get free tokens from https://faucet.story.foundation
-
+**Testnet:** Get free tokens at https://faucet.story.foundation  
 **Mainnet:** Ensure your wallet has IP tokens
 
 ### Transaction fails
 
-1. Check you're on the correct network
-2. Verify your private key has sufficient funds
-3. Check the block explorer for error details
+1. Verify you're connected to the correct network
+2. Confirm your wallet has sufficient funds
+3. Check the block explorer for detailed error messages
 
 ## Resources
 
-- **Documentation:** https://docs.story.foundation
-- **Discord:** https://discord.gg/storybuilders
-- **GitHub:** https://github.com/storyprotocol
-- **Explorer:** https://www.storyscan.io
+- **Story Protocol Documentation:** https://docs.story.foundation
+- **Story Protocol Discord:** https://discord.gg/storybuilders
+- **Block Explorer:** https://www.storyscan.io
+- **GitHub Repository:** https://github.com/Majormaxx/story-dev-cli
 
-## Development
+## Contributing
 
-### Build from Source
+Contributions are welcome! Please see our [Contributing Guide](https://github.com/Majormaxx/story-dev-cli/blob/main/CONTRIBUTING.md).
+
+### Development Setup
 
 ```bash
-git clone https://github.com/storyprotocol/story-dev-cli
+# Clone the repository
+git clone https://github.com/Majormaxx/story-dev-cli.git
 cd story-dev-cli
+
+# Install dependencies
 npm install
+
+# Build the project
 npm run build
+
+# Link for local testing
 npm link
-```
 
-### Run Tests
-
-```bash
+# Run tests
 npm test
 ```
 
+## Support
+
+- **Issues:** https://github.com/Majormaxx/story-dev-cli/issues
+- **Discord:** https://discord.gg/storybuilders
+
 ## License
 
-MIT ©
+MIT © 2024 Majormaxx
 
+---
 
+**Built for the Story Protocol ecosystem** | [Story Protocol](https://www.story.foundation)

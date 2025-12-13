@@ -63,18 +63,39 @@ export async function copyTemplate(
   targetPath: string,
   config: ProjectConfig
 ): Promise<void> {
-  const templatePath = path.join(__dirname, '../../templates', templateName);
+  // Try multiple possible template locations
+  // Priority order ensures compatibility with both npm installs and development
+  // 1. npm install: dist/utils -> ../../templates (package root)
+  // 2. Development: src/utils -> ../templates (relative to src)
+  // 3. Working directory fallback
+  // 4. Additional fallback for edge cases
+  const possiblePaths = [
+    path.join(__dirname, '../../templates', templateName),        // npm: dist/utils -> templates (package root)
+    path.join(__dirname, '../templates', templateName),           // dev: src/utils -> templates
+    path.join(process.cwd(), 'templates', templateName),         // Working directory
+    path.join(__dirname, '../../../templates', templateName),    // Fallback
+  ];
+  
+  let templatePath: string | null = null;
+  
+  // Find the first path that exists
+  for (const possiblePath of possiblePaths) {
+    if (await fs.pathExists(possiblePath)) {
+      templatePath = possiblePath;
+      break;
+    }
+  }
   
   // Check if template exists
-  if (!await fs.pathExists(templatePath)) {
-    throw new Error(`Template "${templateName}" not found at ${templatePath}`);
+  if (!templatePath) {
+    throw new Error(`Template "${templateName}" not found. Searched in:\n${possiblePaths.join('\n')}`);
   }
   
   // Copy template files
   await fs.copy(templatePath, targetPath, {
     filter: (src) => {
       // Skip node_modules and build directories
-      return !src.includes('node_modules') && !src.includes('dist') && !src.includes('.next');
+      return !src.includes('node_modules') && !src.includes('dist')&& !src.includes('.next');
     },
   });
 }

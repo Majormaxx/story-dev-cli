@@ -48,8 +48,9 @@ export async function createQuickstart(options: CreateOptions): Promise<void> {
           message: 'Select template:',
           choices: [
             { name: 'IP Registration (register new assets)', value: 'registration' },
-            { name: 'Licensing (attach licenses & mint tokens)', value: 'licensing' },
-            { name: 'Royalty Management (claim revenue)', value: 'royalty' },
+            // TODO: Add licensing and royalty templates
+            // { name: 'Licensing (attach licenses & mint tokens)', value: 'licensing' },
+            // { name: 'Royalty Management (claim revenue)', value: 'royalty' },
           ],
           default: 'registration',
         },

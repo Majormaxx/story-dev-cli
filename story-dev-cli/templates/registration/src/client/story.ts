@@ -23,7 +23,7 @@ const account = privateKeyToAccount(process.env.PRIVATE_KEY as Address);
 const config: StoryConfig = {
   account: account,
   transport: http(process.env.NEXT_PUBLIC_RPC_URL),
-  chainId: process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'story' : 'aeneid',
+  chainId: process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'mainnet' : 'aeneid',
 };
 
 // Initialize Story Client

@@ -182,6 +182,54 @@ For detailed security guidelines, see [SECURITY.md](https://github.com/Majormaxx
 
 ## Troubleshooting
 
+### Command not found after installation
+
+**Problem:** `story-dev-cli: command not found` or `story-cli: command not found`
+
+**Solutions:**
+
+1. **Install globally** (most common issue):
+
+   ```bash
+   # Wrong
+   npm install @majormaxx/story-dev-cli
+
+   # Correct
+   npm install -g @majormaxx/story-dev-cli
+   ```
+
+2. **Use correct command name**:
+
+   ```bash
+   # Wrong
+   story-cli create:quickstart
+
+   # Correct
+   story-dev-cli create:quickstart
+   ```
+
+3. **Verify installation**:
+
+   ```bash
+   which story-dev-cli
+   story-dev-cli --help
+   ```
+
+4. **Or use npx** (no installation required):
+   ```bash
+   npx @majormaxx/story-dev-cli create:quickstart --interactive
+   ```
+
+### Security vulnerabilities warning
+
+If you see vulnerability warnings during installation, run:
+
+```bash
+npm audit
+```
+
+Our core package has 0 direct vulnerabilities. Any warnings are from transitive dependencies and are being actively monitored.
+
 ### Invalid private key error
 
 Ensure your private key:

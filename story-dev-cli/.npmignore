@@ -1,6 +1,6 @@
 # Source files (only publish dist/)
-src/
-tsconfig.json
+/src/
+/tsconfig.json
 
 # Test files
 tests/

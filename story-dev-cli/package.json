@@ -1,6 +1,6 @@
 {
   "name": "@majormaxx/story-dev-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Story Dev CLI - Generate production-ready Story Protocol projects in 2 minutes",
   "main": "dist/cli.js",
   "types": "dist/cli.d.ts",
